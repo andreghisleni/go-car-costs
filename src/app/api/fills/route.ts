@@ -12,8 +12,8 @@ export async function GET(request: Request) {
     },
     where: findOnlyNotLinkedToMileage
       ? {
-          mileage_id: null,
-        }
+        mileage_id: null,
+      }
       : undefined,
   });
 
@@ -21,9 +21,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  try {
-    const res = await request.json();
+  const res = await request.json();
 
+  try {
     const data = z
       .object({
         totalPrice: z.coerce.number(),

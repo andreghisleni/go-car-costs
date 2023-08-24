@@ -16,9 +16,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  try {
-    const res = await request.json();
+  const res = await request.json();
 
+  try {
     const data = z
       .object({
         kilometers: z.coerce.number(),
