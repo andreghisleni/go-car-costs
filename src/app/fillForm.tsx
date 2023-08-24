@@ -3,13 +3,24 @@
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
-import { format } from "date-fns";
+import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { api } from '@/services/api';
@@ -40,7 +51,7 @@ export function FillForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await api.post("/fills", {
+      await api.post('/fills', {
         totalPrice: values.totalPrice,
         totalLiters: values.totalLiters,
         filledAt: values.filledAt.toString(),
@@ -50,8 +61,8 @@ export function FillForm() {
     } catch (error) {
       console.log(error);
       toast({
-        title: "Erro ao cadastrar o abastecimento",
-        variant: "destructive",
+        title: 'Erro ao cadastrar o abastecimento',
+        variant: 'destructive',
       });
     }
   }
@@ -95,14 +106,14 @@ export function FillForm() {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
+                      variant="outline"
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
+                        'w-[240px] pl-3 text-left font-normal',
+                        !field.value && 'text-muted-foreground',
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, 'PPP')
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -115,8 +126,8 @@ export function FillForm() {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
+                    disabled={date =>
+                      date > new Date() || date < new Date('1900-01-01')
                     }
                     initialFocus
                   />

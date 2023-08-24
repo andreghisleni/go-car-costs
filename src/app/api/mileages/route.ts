@@ -3,14 +3,13 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export async function GET(request: Request) {
-
   const data = await prisma.mileage.findMany({
     orderBy: {
       createdAt: 'desc',
     },
     include: {
-      fills: true
-    }
+      fills: true,
+    },
   });
 
   return NextResponse.json(data);
@@ -18,18 +17,24 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const res = await request.json()
+    const res = await request.json();
 
-    const data = z.object({
-      kilometers: z.coerce.number(),
-      fill_ids: z.array(z.string()),
-    }).parse(res);
+    const data = z
+      .object({
+        kilometers: z.coerce.number(),
+        fill_ids: z.array(z.string()),
+      })
+      .parse(res);
 
-    const checkAllFills = await Promise.all(data.fill_ids.map(async (fill_id) => prisma.fill.findUnique({
-      where: {
-        id: fill_id
-      }
-    })));
+    const checkAllFills = await Promise.all(
+      data.fill_ids.map(async fill_id =>
+        prisma.fill.findUnique({
+          where: {
+            id: fill_id,
+          },
+        }),
+      ),
+    );
 
     if (checkAllFills.length !== data.fill_ids.length) {
       return new Response('Fill not found', { status: 400 });
@@ -39,8 +44,8 @@ export async function POST(request: Request) {
       data: {
         kilometers: data.kilometers,
         fills: {
-          connect: data.fill_ids.map((fill_id) => ({ id: fill_id }))
-        }
+          connect: data.fill_ids.map(fill_id => ({ id: fill_id })),
+        },
       },
     });
 
@@ -49,5 +54,3 @@ export async function POST(request: Request) {
     return new Response(error.message, { status: 400 });
   }
 }
-
-

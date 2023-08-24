@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   Table,
@@ -9,9 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { api } from "@/services/api";
-
+} from '@/components/ui/table';
+import { api } from '@/services/api';
 
 interface Fill {
   id: string;
@@ -37,9 +36,8 @@ interface Mileage {
 export const MileageList: React.FC = () => {
   const [mileages, setMileages] = useState<Mileage[]>([]);
 
-
   async function getMileages() {
-    const response = await api.get("/mileages");
+    const response = await api.get('/mileages');
     setMileages(response.data);
   }
 
@@ -49,7 +47,6 @@ export const MileageList: React.FC = () => {
 
   const parsedMileages = useMemo(() => {
     return mileages.map(mileage => {
-
       const totalPrice = mileage.fills.reduce((acc, fill) => {
         return acc + fill.totalPrice;
       }, 0);
@@ -65,9 +62,9 @@ export const MileageList: React.FC = () => {
         totalPrice,
         totalLiters,
         kilometersPerLiter,
-      }
-    })
-  }, [mileages])
+      };
+    });
+  }, [mileages]);
 
   return (
     <div className="w-[40rem]">
@@ -83,7 +80,9 @@ export const MileageList: React.FC = () => {
         <TableBody>
           {parsedMileages.map(mileage => (
             <TableRow>
-              <TableCell className="font-medium">{mileage.kilometers}</TableCell>
+              <TableCell className="font-medium">
+                {mileage.kilometers}
+              </TableCell>
               <TableCell>{mileage.totalPrice}</TableCell>
               <TableCell>{mileage.totalLiters}</TableCell>
               <TableCell>{mileage.kilometersPerLiter}</TableCell>
@@ -93,4 +92,4 @@ export const MileageList: React.FC = () => {
       </Table>
     </div>
   );
-}
+};

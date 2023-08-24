@@ -6,11 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
-import React, { use, useCallback, useState } from 'react';
-import { MileageDialog } from "../mileage-dialog";
-import { FillDialog } from "../fill-dialog";
+import React, { useCallback, useState } from 'react';
+import { MileageDialog } from '../mileage-dialog';
+import { FillDialog } from '../fill-dialog';
 
 export const CreateDropDowMenu: React.FC = () => {
   const [mileageDialogOpen, setMileageDialogOpen] = useState(false);
@@ -34,16 +34,23 @@ export const CreateDropDowMenu: React.FC = () => {
 
   return (
     <>
-      <MileageDialog open={mileageDialogOpen} onOpenChange={handleMileageDialogChange} />
+      <MileageDialog
+        open={mileageDialogOpen}
+        onOpenChange={handleMileageDialogChange}
+      />
       <FillDialog open={fillDialogOpen} onOpenChange={handleFillDialogChange} />
       <DropdownMenu>
         <DropdownMenuTrigger>Create</DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={handleFillDialogOpen}>Fill</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleFillDialogOpen}>
+            Fill
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleMileageDialogOpen}>Mileage</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleMileageDialogOpen}>
+            Mileage
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
   );
-}
+};

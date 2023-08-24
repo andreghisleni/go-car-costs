@@ -4,13 +4,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-import { FillForm } from "./fillForm";
+import { FillForm } from './fillForm';
 
-export const FillDialog: React.FC<DialogPrimitive.DialogProps> = (props) => {
+export const FillDialog: React.FC<DialogPrimitive.DialogProps> = props => {
   return (
     <Dialog {...props}>
       <DialogContent className="sm:max-w-[425px]">
@@ -23,5 +23,5 @@ export const FillDialog: React.FC<DialogPrimitive.DialogProps> = (props) => {
         <FillForm />
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
