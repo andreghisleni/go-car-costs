@@ -1,8 +1,8 @@
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
-export async function GET(request: Request) {
+export async function GET() {
   const data = await prisma.mileage.findMany({
     orderBy: {
       createdAt: 'desc',

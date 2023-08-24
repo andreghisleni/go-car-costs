@@ -1,5 +1,9 @@
 {
   "extends": [
     "@agsolutions/eslint-config/react"
-  ]
+  ],
+  "rules": {
+    "react/no-unstable-nested-components": "off",
+    "react/no-unknown-property": "off"
+  }
 }

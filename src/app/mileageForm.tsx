@@ -63,9 +63,9 @@ export function MileageForm() {
 
       await getFill();
 
-      console.log(values);
+      console.log(values); // eslint-disable-line no-console
     } catch (error) {
-      console.log(error);
+      console.log(error); // eslint-disable-line no-console
       toast({
         title: 'Erro ao cadastrar o abastecimento',
         variant: 'destructive',

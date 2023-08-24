@@ -59,7 +59,7 @@ export function FillForm() {
 
       form.reset();
     } catch (error) {
-      console.log(error);
+      console.log(error); // eslint-disable-line no-console
       toast({
         title: 'Erro ao cadastrar o abastecimento',
         variant: 'destructive',
