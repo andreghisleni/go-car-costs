@@ -12,8 +12,8 @@ export async function GET(request: Request) {
     },
     where: findOnlyNotLinkedToMileage
       ? {
-        mileage_id: null,
-      }
+          mileage_id: null,
+        }
       : undefined,
   });
 
