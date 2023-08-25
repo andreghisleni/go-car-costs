@@ -8,7 +8,11 @@ export async function GET() {
       createdAt: 'desc',
     },
     include: {
-      fills: true,
+      fills: {
+        include: {
+          payment_method: true,
+        },
+      },
     },
   });
 
@@ -49,7 +53,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({}, { status: 201 });
+    return NextResponse.json(null, { status: 201 });
   } catch (error: any) {
     return new Response(error.message, { status: 400 });
   }

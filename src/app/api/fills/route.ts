@@ -26,9 +26,10 @@ export async function POST(request: Request) {
   try {
     const data = z
       .object({
-        totalPrice: z.coerce.number(),
-        totalLiters: z.coerce.number(),
+        totalPrice: z.coerce.number().min(0.1),
+        totalLiters: z.coerce.number().min(0.1),
         filledAt: z.coerce.date(),
+        paymentMethod: z.string(),
       })
       .parse(res);
 
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
           totalPrice: data.totalPrice,
           totalLiters: data.totalLiters,
           filledAt: data.filledAt,
+          paymentMethod_id: data.paymentMethod,
         },
       },
     });
@@ -51,10 +53,11 @@ export async function POST(request: Request) {
         totalPrice: data.totalPrice,
         totalLiters: data.totalLiters,
         filledAt: data.filledAt,
+        paymentMethod_id: data.paymentMethod,
       },
     });
 
-    return NextResponse.json(undefined, { status: 201 });
+    return NextResponse.json(null, { status: 201 });
   } catch (error: any) {
     return new Response(error.message, { status: 400 });
   }

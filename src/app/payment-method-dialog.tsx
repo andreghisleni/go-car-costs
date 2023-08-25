@@ -8,17 +8,19 @@ import {
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-import { FillForm } from './fillForm';
+import { PaymentMethodForm } from './payment-method-form';
 
-export const FillDialog: React.FC<DialogPrimitive.DialogProps> = props => {
+export const PaymentMethodDialog: React.FC<
+  DialogPrimitive.DialogProps
+> = props => {
   return (
     <Dialog {...props}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Fill</DialogTitle>
-          <DialogDescription>Create a new fill for your car.</DialogDescription>
+          <DialogTitle>Create Payment Method</DialogTitle>
+          <DialogDescription>Create a new payment method.</DialogDescription>
         </DialogHeader>
-        <FillForm />
+        <PaymentMethodForm />
       </DialogContent>
     </Dialog>
   );

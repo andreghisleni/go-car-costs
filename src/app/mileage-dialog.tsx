@@ -14,9 +14,9 @@ export const MileageDialog: React.FC<DialogPrimitive.DialogProps> = props => {
     <Dialog {...props}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Create Mileage</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when youre done.
+            Create a new mileage for your car.
           </DialogDescription>
         </DialogHeader>
         <MileageForm />

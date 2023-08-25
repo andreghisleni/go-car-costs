@@ -4,17 +4,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 import React, { useCallback, useState } from 'react';
 import { MileageDialog } from '../mileage-dialog';
 import { FillDialog } from '../fill-dialog';
+import { PaymentMethodDialog } from '../payment-method-dialog';
 
 export const CreateDropDowMenu: React.FC = () => {
   const [mileageDialogOpen, setMileageDialogOpen] = useState(false);
   const [fillDialogOpen, setFillDialogOpen] = useState(false);
+  const [paymentMethodDialogOpen, setPaymentMethodDialogOpen] = useState(false);
 
   const handleMileageDialogOpen = useCallback(() => {
     setMileageDialogOpen(true);
@@ -32,6 +33,14 @@ export const CreateDropDowMenu: React.FC = () => {
     setFillDialogOpen(false);
   }, []);
 
+  const handlePaymentMethodDialogOpen = useCallback(() => {
+    setPaymentMethodDialogOpen(true);
+  }, []);
+
+  const handlePaymentMethodDialogChange = useCallback(() => {
+    setPaymentMethodDialogOpen(false);
+  }, []);
+
   return (
     <>
       <MileageDialog
@@ -39,15 +48,21 @@ export const CreateDropDowMenu: React.FC = () => {
         onOpenChange={handleMileageDialogChange}
       />
       <FillDialog open={fillDialogOpen} onOpenChange={handleFillDialogChange} />
+      <PaymentMethodDialog
+        open={paymentMethodDialogOpen}
+        onOpenChange={handlePaymentMethodDialogChange}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger>Create</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={handleFillDialogOpen}>
             Fill
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleMileageDialogOpen}>
             Mileage
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={handlePaymentMethodDialogOpen}>
+            Payment Method
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -25,6 +25,23 @@ import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { api } from '@/services/api';
 import { useToast } from '@/components/ui/use-toast';
+import { useEffect, useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+interface PaymentMethod {
+  id: string;
+
+  name: string;
+
+  createdAt: string;
+  updatedAt: string;
+}
 
 const formSchema = z.object({
   totalPrice: z.coerce.number().min(0, {
@@ -36,6 +53,8 @@ const formSchema = z.object({
   filledAt: z.date().min(new Date(2021, 0, 1), {
     message: 'Filled at must be at least 2021-01-01.',
   }),
+
+  paymentMethod: z.string(),
 });
 
 export function FillForm() {
@@ -49,12 +68,24 @@ export function FillForm() {
     },
   });
 
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+
+  async function getPaymentMethods() {
+    const response = await api.get('/payments/methods');
+    setPaymentMethods(response.data);
+  }
+
+  useEffect(() => {
+    getPaymentMethods();
+  }, []);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await api.post('/fills', {
         totalPrice: values.totalPrice,
         totalLiters: values.totalLiters,
         filledAt: values.filledAt.toString(),
+        paymentMethod: values.paymentMethod,
       });
 
       form.reset();
@@ -108,7 +139,7 @@ export function FillForm() {
                     <Button
                       variant="outline"
                       className={cn(
-                        'w-[240px] pl-3 text-left font-normal',
+                        'w-full pl-3 text-left font-normal',
                         !field.value && 'text-muted-foreground',
                       )}
                     >
@@ -137,7 +168,33 @@ export function FillForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="paymentMethod"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a payment method" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {paymentMethods.map(paymentMethod => (
+                    <SelectItem value={paymentMethod.id}>
+                      {paymentMethod.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          Submit
+        </Button>
       </form>
     </Form>
   );
