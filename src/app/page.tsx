@@ -1,6 +1,8 @@
 import { MileageList } from './mileage-list';
 import { PaymentMethodList } from './payment-methods-list';
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24 gap-6">
