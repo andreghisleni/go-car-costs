@@ -12,8 +12,8 @@ export async function GET(request: Request) {
     },
     where: findOnlyNotLinkedToMileage
       ? {
-          mileage_id: null,
-        }
+        OR: [{ AND: [{ mileage_id: null }, { firstKilometer: false }] }, { mileage_id: null }], // eslint-disable-line
+      }// eslint-disable-line
       : undefined,
   });
 
