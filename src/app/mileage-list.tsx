@@ -113,7 +113,7 @@ export const MileageList: React.FC = () => {
               <TableCell className="font-medium">
                 {mileage.kilometers}
               </TableCell>
-              <TableCell>{mileage.totalPrice}</TableCell>
+              <TableCell>{roundValue(mileage.totalPrice)}</TableCell>
               <TableCell>{mileage.totalLiters}</TableCell>
               <TableCell>{roundValue(mileage.kilometersPerLiter)}</TableCell>
               <TableCell>{mileage.fills.length}</TableCell>
